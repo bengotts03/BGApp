@@ -1,24 +1,36 @@
-//
-// Created by Ben Gotts on 03/08/2025.
-//
+#pragma once
 
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#include <memory>
+#include <vector>
 
 #include "Window.h"
-#include <memory>
+#include "RuntimeLayer.h"
 
-class Application {
-public:
-    static Window* AppWindow;
+namespace BGAppCore {
 
-    void Start();
-    void Update();
-    void Shutdown();
+    class Application {
+    public:
+        static Application& GetApplication() {
+            return *_instance;
+        }
 
-    Window& GetWindow();
-private:
-    std::unique_ptr<Window> _window;
-};
+        Application();
+        virtual ~Application();
 
-#endif //APPLICATION_H
+        virtual void Start();
+
+        Window& GetWindow();
+    protected:
+        void AddLayer(RuntimeLayer* layer);
+        void RemoveLayer(RuntimeLayer* layer);
+    private:
+        static Application* _instance;
+
+        std::unique_ptr<Window> _window;
+        std::vector<RuntimeLayer*> _runtimeLayers;
+
+        bool _isRunning;
+    };
+
+    Application* CreateApplication();
+}

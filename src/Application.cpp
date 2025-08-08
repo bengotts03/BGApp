@@ -8,28 +8,61 @@
 #include "Performance.h"
 #include "AppTime.h"
 
+namespace BGAppCore {
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 800
 
-void Application::Start() {
-    _window = std::make_unique<Window>(SCREEN_WIDTH, SCREEN_HEIGHT);
+    Application* Application::_instance;
 
-    Time();
-    Performance();
-    Input::Init(_window.get());
-}
+    Application::Application() {
+        if (_instance == nullptr)
+            _instance = this;
 
-void Application::Update() {
-    Time::Update();
-    Performance::Update();
-    Input::UpdateStates();
+        _isRunning = true;
 
-    _window->Update();
-}
+        _window = std::make_unique<Window>(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-void Application::Shutdown() {
-}
+        Time();
+        Performance();
+        Input::Init(_window.get());
+    }
 
-Window& Application::GetWindow() {
-    return *_window;
+    Application::~Application() {
+
+    }
+
+    void Application::Start() {
+        for (auto& layer: _runtimeLayers) {
+            layer->Start();
+        }
+
+        while (_isRunning) {
+            Time::Update();
+            Performance::Update();
+            Input::UpdateStates();
+
+            for (auto& layer: _runtimeLayers) {
+                layer->Update();
+            }
+
+            _window->Update();
+        }
+
+        for (auto& layer: _runtimeLayers) {
+            layer->Shutdown();
+        }
+    }
+
+    Window& Application::GetWindow() {
+        return *_window;
+    }
+
+    void Application::AddLayer(RuntimeLayer* layer) {
+        _runtimeLayers.emplace_back(layer);
+    }
+
+    void Application::RemoveLayer(RuntimeLayer* layer) {
+        _runtimeLayers.erase(std::find(_runtimeLayers.begin(), _runtimeLayers.end(), layer));
+    }
 }

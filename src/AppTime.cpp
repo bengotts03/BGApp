@@ -5,14 +5,17 @@
 #include "AppTime.h"
 #include <GLFW/glfw3.h>
 
-double Time::NormalTime = 0;
-double Time::DeltaTime = 0;
-double Time::PreviousNormalTime = 0;
+namespace BGAppCore {
 
-void Time::Update() {
-    NormalTime = glfwGetTime();
+    double Time::NormalTime = 0;
+    double Time::DeltaTime = 0;
+    double Time::PreviousNormalTime = 0;
 
-    DeltaTime = NormalTime - PreviousNormalTime;
+    void Time::Update() {
+        NormalTime = glfwGetTime();
 
-    PreviousNormalTime = NormalTime;
+        DeltaTime = NormalTime - PreviousNormalTime;
+
+        PreviousNormalTime = NormalTime;
+    }
 }

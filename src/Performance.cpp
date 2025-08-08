@@ -5,28 +5,31 @@
 #include "Performance.h"
 #include "AppTime.h"
 
-float Performance::FPS = 0;
-float Performance::AverageFPS = 0;
+namespace BGAppCore {
+    
+    float Performance::FPS = 0;
+    float Performance::AverageFPS = 0;
 
-float Performance::MS = 0;
+    float Performance::MS = 0;
 
-double Performance::_timeDifference = 0;
-double Performance::_previousTime = 0;
+    double Performance::_timeDifference = 0;
+    double Performance::_previousTime = 0;
 
-unsigned int Performance::_fpsCount = 0;
+    unsigned int Performance::_fpsCount = 0;
 
-void Performance::Update() {
-    _timeDifference = Time::NormalTime - _previousTime;
+    void Performance::Update() {
+        _timeDifference = Time::NormalTime - _previousTime;
 
-    _fpsCount++;
+        _fpsCount++;
 
-    FPS = _timeDifference * _fpsCount;
+        FPS = _timeDifference * _fpsCount;
 
-    if (_timeDifference >= 1.0 / 30.0) {
-        AverageFPS = (1.0 / _timeDifference) * _fpsCount;
-        MS = (_timeDifference / _fpsCount) * 1000;
+        if (_timeDifference >= 1.0 / 30.0) {
+            AverageFPS = (1.0 / _timeDifference) * _fpsCount;
+            MS = (_timeDifference / _fpsCount) * 1000;
 
-        _fpsCount = 0;
-        _previousTime = Time::NormalTime;
+            _fpsCount = 0;
+            _previousTime = Time::NormalTime;
+        }
     }
 }
