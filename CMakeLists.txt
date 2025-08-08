@@ -22,3 +22,13 @@ target_include_directories(BGApp PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
         $<INSTALL_INTERFACE:include/src>
 )
+
+install(TARGETS BGApp
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+)
+
+install(DIRECTORY src/
+        DESTINATION include
+        FILES_MATCHING PATTERN "*.h" PATTERN "*.hpp"
+)

@@ -13,7 +13,7 @@ Window::Window(unsigned int width, unsigned int height) : _width(width), _height
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    _window = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), "Voxl", nullptr, nullptr);
+    _window = glfwCreateWindow(static_cast<int>(width), static_cast<int>(height), "BG App", nullptr, nullptr);
 
     if (_window == nullptr) {
         std::cout << "Failed to create GLFW window" << std::endl;
