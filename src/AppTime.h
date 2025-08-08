@@ -1,9 +1,9 @@
 //
-// Created by Ben Gotts on 03/08/2025.
+// Created by Ben Gotts on 08/08/2025.
 //
 
-#ifndef TIME_H
-#define TIME_H
+#ifndef BGAPP_APPTIME_H
+#define BGAPP_APPTIME_H
 
 class Time {
 public:
@@ -14,4 +14,4 @@ public:
     static void Update();
 };
 
-#endif //TIME_H
+#endif //BGAPP_APPTIME_H

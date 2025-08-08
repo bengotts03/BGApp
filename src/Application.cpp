@@ -6,7 +6,7 @@
 #include "Window.h"
 #include "Input.h"
 #include "Performance.h"
-#include "Time.h"
+#include "AppTime.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 800

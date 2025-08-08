@@ -3,7 +3,7 @@
 //
 
 #include "Performance.h"
-#include "Time.h"
+#include "AppTime.h"
 
 float Performance::FPS = 0;
 float Performance::AverageFPS = 0;
